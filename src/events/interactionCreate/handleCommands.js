@@ -1,3 +1,5 @@
+//handleCommands.js
+
 const { devs, testServer } = require('../../../config.json');
 const getLocalCommands = require('../../utils/getLocalCommands');
 
@@ -57,7 +59,7 @@ module.exports = async (client, interaction) => {
                 }
             }
 
-            await commandObject.callback(client, interaction);
+            await commandObject.callback({interaction, client});
 
         } catch (error) {
             console.log(`There was an error running this command: ${error}`);
