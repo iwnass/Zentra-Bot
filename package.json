@@ -11,7 +11,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "discord.js": "^14.15.3",
+    "express": "^5.1.0",
     "mysql2": "^3.11.0",
     "node-fetch": "^3.3.2",
     "puppeteer": "^23.2.1",

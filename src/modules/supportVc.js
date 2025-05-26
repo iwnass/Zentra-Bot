@@ -37,12 +37,14 @@ module.exports = (client) => {
 
                 // Remember the channel for cleanup
                 createdSupportChannels.add(supportChannel.id);
+                console.log(`✅ Created support VC: ${supportChannel.name}`);
 
                 // Move user to new support channel
                 await newState.setChannel(supportChannel);
+                console.log(`✅ Moved ${user} to support VC: ${supportChannel.name}`);
 
             } catch (err) {
-                console.error('Error creating/moving support VC:', err);
+                console.error('❌ Error creating/moving support VC:', err);
             }
         }
 
@@ -54,11 +56,12 @@ module.exports = (client) => {
                 try {
                     await oldChannel.delete();
                     createdSupportChannels.delete(oldState.channelId);
-                    console.log(`Deleted empty support VC: ${oldChannel.name}`);
+                    console.log(`✅ Deleted empty support VC: ${oldChannel.name}`);
                 } catch (err) {
-                    console.error('Error deleting empty support VC:', err);
+                    console.error('❌ Error deleting empty support VC:', err);
                 }
             }
         }
     });
+    console.log('✅ Support VC module loaded');
 };

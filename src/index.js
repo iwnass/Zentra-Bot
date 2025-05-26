@@ -4,6 +4,7 @@ require('dotenv').config();
 const { Client, Partials, IntentsBitField, Events, EmbedBuilder } = require("discord.js");
 const loadTickets = require('./modules/ticket.js');
 const loadSupportVc = require('./modules/supportVc.js');
+const startAPI = require('./api/startAPI.js');
 // const mongoose = require('mongoose');
 // const fs = require('fs');
 
@@ -28,7 +29,7 @@ const client = new Client({
     partials: [Partials.Channel],
 });
 
-
+startAPI(client);
 loadTickets(client);
 loadSupportVc(client);
 
