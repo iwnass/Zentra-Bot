@@ -56,4 +56,19 @@ router.get('/guild/:id/audit-logs', async (req, res) => {
     }
 });
 
+// Check which guilds have Zentra bot
+router.post('/with-zentra', async (req, res) => {
+  const { guild_ids } = req.body;
+  
+  try {
+    // Access your bot client (you'll need to pass this in or import it)
+    const botGuilds = req.app.locals.client.guilds.cache.map(guild => guild.id);
+    const zentraGuilds = guild_ids.filter(id => botGuilds.includes(id));
+    
+    res.json(zentraGuilds);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to check guilds' });
+  }
+});
+
 module.exports = router;

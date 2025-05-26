@@ -1,6 +1,6 @@
-require('../../../.env').config();
+require('dotenv').config();
 
-odule.exports = (req, res, next) => {
+module.exports = (req, res, next) => {
   const apiKey = req.headers['authorization'];
 
   if (!apiKey || apiKey !== process.env.API_KEY) {

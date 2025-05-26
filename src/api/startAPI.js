@@ -1,8 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 
-const guildRoutes = require('./api/routes/guilds');
-const configRoutes = require('./api/routes/config');
+const guildRoutes = require('../api/routes/guilds.js');
+const configRoutes = require('../api/routes/config.js');
+const authRoutes = require('../api/routes/auth');
 
 function startAPI(client) {
   const app = express();
@@ -19,6 +20,7 @@ function startAPI(client) {
 
   app.use('/guilds', guildRoutes);
   app.use('/guild', configRoutes);
+  app.use('/api/auth', authRoutes);
 
   app.listen(PORT, () => {
     console.log(`✅ API running at http://localhost:${PORT}`);
