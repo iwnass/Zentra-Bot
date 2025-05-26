@@ -25,4 +25,21 @@ router.post('/discord/callback', async (req, res) => {
   }
 });
 
+router.get('/callback', (req, res) => {
+  const { code, error } = req.query;
+  
+  if (error) {
+    res.send('<script>window.close();</script>');
+    return;
+  }
+  
+  // Send the code back to your Electron app
+  res.send(`
+    <script>
+      window.opener.postMessage({ code: '${code}' }, '*');
+      window.close();
+    </script>
+  `);
+});
+
 module.exports = router;
