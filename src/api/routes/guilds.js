@@ -35,4 +35,25 @@ router.get('/:id/members', verifyAccess, async (req, res) => {
   }
 });
 
+router.get('/guild/:id/audit-logs', async (req, res) => {
+    try {
+        const guild = client.guilds.cache.get(req.params.id);
+        if (!guild) return res.status(404).json({ error: 'Guild not found' });
+
+        const logs = await guild.fetchAuditLogs({ limit: 25 }); // or customize the limit/type
+        const entries = logs.entries.map(entry => ({
+            action: entry.action,
+            target: entry.target?.id,
+            executor: entry.executor?.tag,
+            reason: entry.reason,
+            createdAt: entry.createdAt,
+        }));
+
+        res.json(entries);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch audit logs' });
+    }
+});
+
 module.exports = router;
